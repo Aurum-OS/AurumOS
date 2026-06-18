@@ -272,7 +272,7 @@ mntpartnv () {
 
 psbase () {
   clear
-  pacstrap /mnt base base-devel cryptsetup curl dbus-broker dbus-broker-units dialog e2fsprogs device-mapper dhcpcd dosfstools efibootmgr gptfdisk grub less linux-lts linux-firmware linux-firmware-whence linux-lts-headers lvm2 mkinitcpio mtools nano nvme-cli reflector rsync sysfsutils xz zstd
+  pacstrap /mnt base base-devel cryptsetup curl dbus-broker dbus-broker-units dialog e2fsprogs device-mapper dhcpcd dosfstools efibootmgr gptfdisk grub less linux linux-firmware linux-firmware-whence linux-headers lvm2 mkinitcpio mtools nano nvme-cli reflector rsync sysfsutils xz zstd
   clear
   echo -e "\n"
   echo "Pacstrap base system complete..."
@@ -337,7 +337,7 @@ instgrub () {
   echo -e "\n"
   arch-chroot /mnt grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=GRUB --recheck
   arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
-  arch-chroot /mnt mkinitcpio -p linux-lts
+  arch-chroot /mnt mkinitcpio -p linux
   clear
   echo -e "\n"
   echo "Grub installed & mkinicpio run..."
