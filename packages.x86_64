@@ -1,7 +1,11 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Ezarcher custom package list
+# Aurum custom package list
 #
+
+# Nyarch Things
+nekoplay
+
 alsa-utils
 amd-ucode
 arch-install-scripts
