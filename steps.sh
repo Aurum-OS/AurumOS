@@ -17,7 +17,7 @@ MYUSRPASSWD="live"
 RTPASSWD="toor"
 # Pick a root password
 
-MYHOSTNM="ezarcher"
+MYHOSTNM="AurumOS"
 # Pick a hostname for the machine
 
 # ----------------------------------------
@@ -65,16 +65,6 @@ rm -r ./ezreleng/grub
 rm -r ./ezreleng/efiboot
 rm -r ./ezreleng/syslinux
 rm -r ./ezreleng/airootfs/etc/mkinitcpio.conf.d
-}
-
-# Copy ezrepo to opt
-cpezrepo () {
-cp -r ./opt/ezrepo/ /opt/
-}
-
-# Remove ezrepo from opt
-rmezrepo () {
-rm -r /opt/ezrepo
 }
 
 # Remove auto-login, cloud-init, hyper-v, iwd, sshd, & vmware services
@@ -201,7 +191,6 @@ prepreqs
 cleanup
 cpezreleng
 addnmlinks
-cpezrepo
 rmunitsd
 cpmyfiles
 sethostname
@@ -210,7 +199,6 @@ crtgroup
 crtshadow
 crtgshadow
 runmkarchiso
-rmezrepo
 
 
 # Disclaimer:
