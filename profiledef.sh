@@ -2,7 +2,7 @@
 # shellcheck disable=SC2034
 
 iso_name="Aurum"
-iso_label="AURUM_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%y%m)"
+iso_label="AURUM-OS_$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%y%m)"
 iso_publisher="Aurum OS <https://github.com/orgs/Aurum-OS>"
 iso_application="Aurum OS DVD"
 iso_version="$(date --date="@${SOURCE_DATE_EPOCH:-$(date +%s)}" +%y%m)"

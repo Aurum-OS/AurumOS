@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Calamares Installer
+Exec=pkexec calamares
+Icon=calamares
+Terminal=false
+StartupNotify=false
+X-KDE-autostart-after=panel
