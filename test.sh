@@ -106,3 +106,6 @@ echo "82 \n"
 echo "w \n"
 
 sudo /sbin/mkswap $DEVICE"3"
+
+sudo mkdir /media/boot
+sudo mount $DEVICE"1" /media/boot
