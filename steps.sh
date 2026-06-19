@@ -5,7 +5,7 @@
 # by eznix (https://sourceforge.net/projects/ezarch/)
 # Changed by Aurum team to fit needs
 # ----------------------------------------
-# Define Variables
+# Define Variabless
 # ----------------------------------------
 
 MYUSERNM="live"
