@@ -5,6 +5,8 @@
 
 # Nyarch Things
 nekoplay
+nyarch-keyring
+nyarch-mirrorlist
 
 alsa-utils
 amd-ucode
@@ -445,7 +447,19 @@ xdg-desktop-portal-kde
 xsettingsd
 
 # Display Manager
-plasma-login-manager
+sddm
+sddm-kcm
+kpmcore
+qt6-svg
+qt6-virtualkeyboard
+qt6-multimedia-ffmpeg
+qt6-declarative
+polkit-kde-agent
+xcb-util-cursor
+xcb-util
+qt6
+xorg
+python313
 
 # Calamares make dependencies
 dmidecode
@@ -481,7 +495,3 @@ yaml-cpp
 calamares
 ckbcomp
 mkinitcpio-openswap
-
-# AUR
-downgrade
-trizen

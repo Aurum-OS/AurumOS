@@ -3,7 +3,7 @@
 # Revision: 26.02
 # (GNU/General Public License version 3.0)
 # by eznix (https://sourceforge.net/projects/ezarch/)
-
+# Changed by Aurum team to fit needs
 # ----------------------------------------
 # Define Variables
 # ----------------------------------------
@@ -53,6 +53,18 @@ sleep 2
 # Requirements and preparation
 prepreqs () {
 pacman -S --needed --noconfirm archiso mkinitcpio-archiso
+
+mkdir -p ./ezreleng/airootfs/etc/xdg/autostart
+ln -sf /usr/lib/polkit-kde-authentication-agent-1 ./ezreleng/airootfs/etc/xdg/autostart/
+
+# Ensure systemd unit parent dir exists and no directory named
+# display-manager.service is present (that breaks linking)
+mkdir -p ./ezreleng/airootfs/etc/systemd/system
+if [ -d ./ezreleng/airootfs/etc/systemd/system/display-manager.service ]; then
+  rm -rf ./ezreleng/airootfs/etc/systemd/system/display-manager.service
+fi
+
+# Note: dont enable sddm yet, things may not be populated enough yet!
 }
 
 # Copy ezreleng to working directory
@@ -86,16 +98,17 @@ mkdir -p ./ezreleng/airootfs/etc/systemd/system/printer.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/sockets.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/timers.target.wants
 mkdir -p ./ezreleng/airootfs/etc/systemd/system/sysinit.target.wants
+mkdir -p ./ezreleng/airootfs/etc/systemd/system
 ln -sf /usr/lib/systemd/system/NetworkManager-wait-online.service ./ezreleng/airootfs/etc/systemd/system/network-online.target.wants/NetworkManager-wait-online.service
 ln -sf /usr/lib/systemd/system/NetworkManager-dispatcher.service ./ezreleng/airootfs/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
 ln -sf /usr/lib/systemd/system/NetworkManager.service ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/NetworkManager.service
-ln -sf /usr/lib/systemd/system/reflector.service ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/reflector.service
 ln -sf /usr/lib/systemd/system/haveged.service ./ezreleng/airootfs/etc/systemd/system/sysinit.target.wants/haveged.service
 ln -sf /usr/lib/systemd/system/cups.service ./ezreleng/airootfs/etc/systemd/system/printer.target.wants/cups.service
 ln -sf /usr/lib/systemd/system/cups.socket ./ezreleng/airootfs/etc/systemd/system/sockets.target.wants/cups.socket
 ln -sf /usr/lib/systemd/system/cups.path ./ezreleng/airootfs/etc/systemd/system/multi-user.target.wants/cups.path
-ln -sf /usr/lib/systemd/system/plasmalogin.service ./ezreleng/airootfs/etc/systemd/system/display-manager.service
+ln -sf /usr/lib/systemd/system/graphical.target ./ezreleng/airootfs/etc/systemd/system/default.target
 }
+
 
 # Copy files to customize the ISO
 cpmyfiles () {
@@ -176,6 +189,31 @@ sambashare:!*::"${MYUSERNM}"
 "${MYUSERNM}":!*::" > ./ezreleng/airootfs/etc/gshadow
 }
 
+# After the build tree is copied into ./ezreleng/airootfs, enable SDDM
+# by creating the expected systemd unit symlinks inside the airootfs.
+enablesddmpop () {
+  # ensure parent dir and remove any mistakenly-created directory
+  mkdir -p ./ezreleng/airootfs/etc/systemd/system
+  if [ -d ./ezreleng/airootfs/etc/systemd/system/display-manager.service ]; then
+    rm -rf ./ezreleng/airootfs/etc/systemd/system/display-manager.service
+  fi
+
+  # Prefer unit inside the airootfs; fall back to build-host paths
+  if [ -f ./ezreleng/airootfs/usr/lib64/systemd/system/sddm.service ]; then
+    SDDM_UNIT="/usr/lib64/systemd/system/sddm.service"
+  elif [ -f ./ezreleng/airootfs/usr/lib/systemd/system/sddm.service ]; then
+    SDDM_UNIT="/usr/lib/systemd/system/sddm.service"
+  elif [ -f /usr/lib64/systemd/system/sddm.service ]; then
+    SDDM_UNIT="/usr/lib64/systemd/system/sddm.service"
+  else
+    SDDM_UNIT="/usr/lib/systemd/system/sddm.service"
+  fi
+
+  ln -sf "$SDDM_UNIT" ./ezreleng/airootfs/etc/systemd/system/display-manager.service
+  mkdir -p ./ezreleng/airootfs/etc/systemd/system/graphical.target.wants
+  ln -sf "$SDDM_UNIT" ./ezreleng/airootfs/etc/systemd/system/graphical.target.wants/sddm.service
+}
+
 # Start mkarchiso
 runmkarchiso () {
 mkarchiso -v -w ./work -o ./out ./ezreleng
@@ -198,6 +236,7 @@ crtpasswd
 crtgroup
 crtshadow
 crtgshadow
+enablesddmpop
 runmkarchiso
 
 
