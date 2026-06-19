@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rootfs = $(pwd)/mount/aurumos/
+
 # Ensure the script is run with sufficient privileges to see block devices
 if [ "$EUID" -ne 0 ]; then
   echo "Please run as root or with sudo to ensure all USB devices are detected."
@@ -106,6 +108,34 @@ echo "82 \n"
 echo "w \n"
 
 sudo /sbin/mkswap $DEVICE"3"
+# creates mount points & mounts partitoions
+sudo mkdir ./mount/boot
+sudo mount $DEVICE"1" ./mount/boot
 
-sudo mkdir /media/boot
-sudo mount $DEVICE"1" /media/boot
+sudo mkdir ./mount/aurumos
+sudo mount $DEVICE"2" ./mount/aurumos
+
+mkdir -p $(pwd)/var/lib/pacman
+
+#installs base packages
+pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -Sy
+pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -S base base-devel openfwwf
+
+# create fstab
+touch $rootfs/etc/fstab
+echo "
+/dev/$DEVICE"2"          /            ext2      defaults,noatime            0 1
+/dev/$DEVICE"1"          /boot        vfat      defaults,noatime            0 1
+
+tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $rootfs/etc/fstab
+
+touch $rootfs/etc/rc.conf
+echo "HOSTNAME=aurumos" > $rootfs/etc/rc.conf
+
+touch $rootfs/etc/hosts
+echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost    archlinux" > $rootfs/etc/hosts
+
+sudo cp $(pwd)pacman.conf $rootfs/etc/pacman.conf
+
+sudo umount /media/boot
+sudo umount /media/aurumos
