@@ -8,6 +8,12 @@ nekoplay
 nyarch-keyring
 nyarch-mirrorlist
 
+# gaming Things
+steam
+lutris
+retro-gtk
+retroarch
+
 alsa-utils
 amd-ucode
 arch-install-scripts

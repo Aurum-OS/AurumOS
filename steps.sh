@@ -216,7 +216,7 @@ enablesddmpop () {
 
 # Start mkarchiso
 runmkarchiso () {
-mkarchiso -v -w ./work -o ./out ./ezreleng
+mkarchiso -A AurumOS -P AurumOS -v -w ./work -o ./out ./ezreleng
 }
 
 # ----------------------------------------
