@@ -6,7 +6,7 @@
 # Changed by Aurum team to fit needs
 # ----------------------------------------
 # Define Variables
-# ---------------------s-------------------
+# ----------------------------------------
 
 MYUSERNM="live"
 # use all lowercase letters only
