@@ -125,7 +125,7 @@ mkdir -p $(pwd)/var/lib/pacman
 
 #installs base packages
 pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -Sy
-pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -S base base-devel openfwwf
+pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -S base base-devel openfwwf plasma-desktop
 sudo cp $(pwd)pacman.conf $rootfs/etc/pacman.conf
 }
 
