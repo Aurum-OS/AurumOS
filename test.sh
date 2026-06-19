@@ -42,12 +42,67 @@ while true; do
         echo "Invalid selection. Please try again."
     fi
 done
-
+# confirmation
 echo "------------------------------------------------"
 echo "Success! You selected: $DEVICE"
+clear
 
-# -----------------------------------------------------------------
-# YOUR CODE GOES HERE
-# The $DEVICE variable is now ready for use in the rest of your script.
-# Example: fdisk -l "$DEVICE" or mkfs.vfat "$DEVICE"
-# -----------------------------------------------------------------
+# starts fdisk to partition the device
+echo "starting fdisk utility for $DEVICE..."
+sudo /sbin/fdisk $DEVICE
+sleep 2
+
+# make new dos partition table
+echo "o \n"
+# starts new partition
+echo "n \n"
+#primary partition
+echo "p \n"
+#first partition
+echo "1 \n"
+echo "\n"
+#space allocation
+echo "+256M \n"
+#option to change fs
+echo "t \n"
+#changes fs to fat16
+echo "6 \n"
+#writes changes to disk
+echo "w \n" 
+#makes first partition fat16 & named "boot"
+sudo /sbin/mkfs.vfat -n boot $DEVICE"1"
+
+#makes root fs
+sudo /sbin/fdisk $DEVICE
+#new partition
+echo "n \n"
+#primary partition
+echo "p \n"
+#partition number 2
+echo "2 \n"
+echo "\n"
+#space allocation
+echo "+1600M /n"
+#writes changes to disk
+echo "w \n"
+# makes second partition ext2 & named "aurum"
+sudo /sbin/mkfs.ext2 -L aurum $DEVICE"2"
+
+sudo /sbin/fdisk $DEVICE
+#new partition
+echo "n \n"
+#primary
+echo "p \n"
+#3rd
+echo "3 \n"
+echo "\n"
+#size
+echo "+128M"
+#makes it swap
+echo "t \n"
+echo "3 \n"
+echo "82 \n"
+#writes to disk
+echo "w \n"
+
+sudo /sbin/mkswap $DEVICE"3"
