@@ -49,29 +49,9 @@ echo "------------------------------------------------"
 echo "Success! You selected: $DEVICE"
 clear
 
-# starts fdisk to partition the device
-echo "starting fdisk utility for $DEVICE..."
-sudo /sbin/fdisk $DEVICE
-sleep 2
-
 # make new dos partition table
-echo "o \n"
-# starts new partition
-echo "n \n"
-#primary partition
-echo "p \n"
-#first partition
-echo "1 \n"
-echo "\n"
-#space allocation
-echo "+256M \n"
-#option to change fs
-echo "t \n"
-#changes fs to fat16
-echo "6 \n"
-#writes changes to disk
-echo "w \n" 
-#makes first partition fat16 & named "boot"
+(echo o; echo n; echo p; echo 1; echo ""; echo w) |  sudo /sbin/fdisk $DEVICE
+
 sudo /sbin/mkfs.vfat -n boot $DEVICE"1"
 
 #makes root fs

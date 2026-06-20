@@ -62,52 +62,21 @@ echo "Success! You selected: $DEVICE"
 clear
 }
 
-partitionusb () {
+bootfs () {
 # starts fdisk to partition the device
 echo "starting fdisk utility for $DEVICE..."
-sudo /sbin/fdisk $DEVICE
-sleep 2
-# make new dos partition table
-echo "o \n"
-# starts new partition
-echo "n \n"
-#primary partition
-echo "p \n"
-#first partition
-echo "1 \n"
-echo "\n"
-#space allocation
-echo "+256M \n"
-#option to change fs
-echo "t \n"
-#changes fs to fat16
-echo "6 \n"
-#new partition
-echo "n \n"
-#primary partition
-echo "p \n"
-#partition number 2
-echo "2 \n"
-echo "\n"
-#space allocation
-echo "+1600M /n"
-#new partition
-echo "n \n"
-#primary
-echo "p \n"
-#3rd
-echo "3 \n"
-echo "\n"
-#size
-echo "+128M"
-#makes it swap
-echo "t \n"
-echo "3 \n"
-echo "82 \n"
-#writes to disk
-echo "w \n"
+(echo o; echo n; echo p; echo 1; echo ""; echo +256M; echo t; echo 6; echo w) | sudo /sbin/fdisk $DEVICE
 sudo /sbin/mkfs.vfat -n boot $DEVICE"1"
+sleep 2
+}
+
+rootfs () {
+(echo n; echo p; echo 2; echo ""; echo +1600M; echo w) | sudo /sbin/fdisk $DEVICE
 sudo /sbin/mkfs.ext2 -L aurum $DEVICE"2"
+}
+
+swapfs () {
+(echo n; echo p; echo 3; echo ""; echo +128M; echo t; echo 3; echo 82; echo w) | sudo /sbin/fdisk $DEVICE
 sudo /sbin/mkswap $DEVICE"3"
 }
 
@@ -153,7 +122,9 @@ cp $rootfs $(pwd)
 
 testroot
 findusbs
-partitionusb
+bootfs
+rootfs
+swapfs 
 mountusb
 installbase
 createfiles
