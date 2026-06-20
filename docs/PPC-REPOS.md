@@ -29,10 +29,10 @@ The repository configuration in `wiiEmulator/pacman.conf` is set up as follows:
 
 ```ini
 [core]
-Server = https://repo.archlinuxpower.org/$repo/os/powerpc
+Server = https://repo.archlinuxpower.org/base/powerpc
 
 [extra]
-Server = https://repo.archlinuxpower.org/$repo/os/powerpc
+Server = https://repo.archlinuxpower.org/base/powerpc
 
 [extra-wii]
 Server = https://repo.wii-linux.org/arch/extra/powerpc
