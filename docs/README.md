@@ -4,7 +4,22 @@ This directory contains documentation for the AurumOS project.
 
 ## Contents
 
-- **[PPC-REPOS.md](PPC-REPOS.md)** — PowerPC repository configuration for the Wii edition, including active repository URLs and package information.
+### Desktop Edition
+
+| Doc | Description |
+|-----|-------------|
+| [BUILDING.md](BUILDING.md) | Step-by-step guide for building the desktop ISO |
+| [INSTALLER.md](INSTALLER.md) | Using Calamares and the TUI installers |
+| [PACKAGE-LIST.md](PACKAGE-LIST.md) | Breakdown of all ~500 packages by category |
+| [CUSTOMIZATION.md](CUSTOMIZATION.md) | Adding/removing packages, changing credentials, branding, boot config |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Build pipeline and component overview |
+
+### Wii Edition
+
+| Doc | Description |
+|-----|-------------|
+| [WII-GUIDE.md](WII-GUIDE.md) | Wii installation walkthrough |
+| [PPC-REPOS.md](PPC-REPOS.md) | PowerPC repository configuration and active URLs |
 
 ## Additional Resources
 
