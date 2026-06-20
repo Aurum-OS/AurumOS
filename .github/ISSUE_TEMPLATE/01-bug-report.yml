@@ -1,0 +1,53 @@
+name: Bug Report
+description: Report a problem with AurumOS
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report.
+
+  - type: dropdown
+    id: edition
+    attributes:
+      label: Edition
+      description: Which edition of AurumOS are you using?
+      options:
+        - Desktop (ezarcher/)
+        - Wii (wiiEmulator/)
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce the issue?
+      placeholder: |
+        1. Run 'sudo bash steps.sh'
+        2. ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs / Output
+      description: Paste any relevant error messages or log output.
+      render: shell
+
+  - type: input
+    id: iso
+    attributes:
+      label: ISO Version
+      description: The ISO label (e.g. AURUM-OS_2606) or build date
