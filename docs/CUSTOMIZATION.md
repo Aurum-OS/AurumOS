@@ -62,7 +62,7 @@ Place `.desktop` files in `ezarcher/etc/xdg/autostart/` and they will run on liv
 Replace files in `ezarcher/usr/share/backgrounds/`.
 
 ### Add Custom Icons
-Add to `ezarcher/usr/share/icons/`.
+Add to `ezarcher/usr/share/icons/default/`.
 
 ## Modifying Pacman Repositories
 

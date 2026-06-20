@@ -23,7 +23,7 @@ sudo bash steps.sh
 
 ### What steps.sh does
 
-1. **Prepereqs** — Installs `archiso` and `mkinitcpio-archiso` if missing
+1. **prepreqs** — Installs `archiso` and `mkinitcpio-archiso` if missing
 2. **Cleanup** — Removes old `ezreleng/`, `work/`, and `out/` directories
 3. **cpezreleng** — Copies the Arch releng profile as a base
 4. **addnmlinks** — Enables systemd services (NetworkManager, cups, haveged)

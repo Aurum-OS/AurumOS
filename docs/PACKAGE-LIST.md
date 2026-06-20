@@ -35,7 +35,7 @@ AurumOS ships ~500 packages. Below is the breakdown by category.
 
 ## Multimedia
 
-`pipewire`, `pipewire-{alsa,audio,jack,pulse,v4l2}`, `wireplumber`, `ffmpeg`, `gstreamer` + plugins, `audacious`, `mpv`, `vlc`, `smplayer`, `sox`
+`pipewire`, `pipewire-{alsa,audio,jack,pulse,v4l2}`, `wireplumber`, `ffmpeg`, `gstreamer` + plugins, `audacious`, `mpv`, `smplayer`, `sox`
 
 ## Networking
 
@@ -55,7 +55,7 @@ AurumOS ships ~500 packages. Below is the breakdown by category.
 
 ## System Tools
 
-`htop`, `btop`, `inxi`, `hwinfo`, `gparted`, `gnome-disk-utility`, `timeshift`, `testdisk`, `parted`, `gptfdisk`, `clonezilla`, `ddrescue`, `fsarchiver`, `reflector`, `tlp`, `fwupd`, `flatpak`, `keepassxc`
+`htop`, `inxi`, `hwinfo`, `gparted`, `gnome-disk-utility`, `timeshift`, `testdisk`, `parted`, `gptfdisk`, `clonezilla`, `ddrescue`, `fsarchiver`, `reflector`, `tlp`, `fwupd`, `flatpak`, `keepassxc`
 
 ## Calamares Installer
 
