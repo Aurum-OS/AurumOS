@@ -25,3 +25,4 @@ This directory contains documentation for the AurumOS project.
 
 - Desktop edition documentation: `ezarcher/usr/share/ezarcher/Docs/`
 - Desktop edition install guides: `ezarcher/usr/share/ezarcher/Install_Guides/`
+- Issue templates: `.github/ISSUE_TEMPLATE/`
