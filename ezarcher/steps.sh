@@ -27,7 +27,7 @@ MYHOSTNM="AurumOS"
 # Test for root user
 rootuser () {
   if [[ "$EUID" = 0 ]]; then
-    continue
+    return
   else
     echo "Please Run As Root"
     sleep 2
