@@ -118,6 +118,7 @@ umntclnup () {
 sudo umount $bootfs
 sudo umount $rootfs
 cp $rootfs $(pwd)
+cp $rootfs $(pwd)
 }
 
 testroot
