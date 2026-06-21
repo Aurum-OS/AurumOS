@@ -213,6 +213,16 @@ enablesddmpop () {
   ln -sf "$SDDM_UNIT" ./ezreleng/airootfs/etc/systemd/system/graphical.target.wants/sddm.service
 }
 
+# Create a pacman wrapper that auto-selects the first provider
+# without an interactive prompt (--ask 4 = PROVIDE bit).
+inject_pacman_wrapper () {
+  cat > /usr/local/bin/pacman << 'EOF'
+#!/bin/bash
+exec /usr/bin/pacman --ask 4 "$@"
+EOF
+  chmod +x /usr/local/bin/pacman
+}
+
 # Start mkarchiso
 runmkarchiso () {
 mkarchiso -A AurumOS -P AurumOS -v -w ./work -o ./out ./ezreleng
@@ -236,6 +246,7 @@ crtgroup
 crtshadow
 crtgshadow
 enablesddmpop
+inject_pacman_wrapper
 runmkarchiso
 
 
