@@ -27,7 +27,7 @@ MYHOSTNM="AurumOS"
 # Test for root user
 rootuser () {
   if [[ "$EUID" = 0 ]]; then
-    continue
+    return
   else
     echo "Please Run As Root"
     sleep 2
@@ -215,7 +215,7 @@ enablesddmpop () {
 
 # Start mkarchiso
 runmkarchiso () {
-mkarchiso -A AurumOS -P AurumOS -v -w ./work -o ./out ./ezreleng
+yes "1" | mkarchiso -A AurumOS -P AurumOS -v -w ./work -o ./out ./ezreleng
 }
 
 # ----------------------------------------

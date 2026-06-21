@@ -21,7 +21,7 @@ jobs:
       - name: Install build dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --needed --noconfirm archiso mkinitcpio-archiso
+          pacman -S --needed --noconfirm archiso mkinitcpio-archiso grub
 
       - name: Build AurumOS ISO
         working-directory: ./ezarcher
