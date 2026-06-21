@@ -104,8 +104,8 @@ pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pa
 # create fstab
 touch $rootfs/etc/fstab
 echo "
-/dev/$DEVICE"2"          /            ext2      defaults,noatime            0 1
-/dev/$DEVICE"1"          /boot        vfat      defaults,noatime            0 1
+$DEVICE"2"          /            ext2      defaults,noatime            0 1
+$DEVICE"1"          /boot        vfat      defaults,noatime            0 1
 
 tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $rootfs/etc/fstab
 
