@@ -87,6 +87,8 @@ sudo mount $DEVICE"1" ./mount/boot
 
 sudo mkdir ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
+
+arch-chroot ./mount/aurumos
 }
 
 installbase () {
@@ -115,6 +117,7 @@ echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost
 }
 
 umntclnup () {
+exit
 sudo umount $bootfs
 sudo umount $rootfs
 cp $rootfs $(pwd)
@@ -123,10 +126,10 @@ cp $rootfs $(pwd)
 
 testroot
 findusbs
+createfiles
 bootfs
 rootfs
 swapfs 
 mountusb
 installbase
-createfiles
 umntclnup
