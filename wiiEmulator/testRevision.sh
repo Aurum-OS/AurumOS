@@ -87,10 +87,11 @@ sudo mount $DEVICE"1" ./mount/boot
 
 sudo mkdir ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
+}
+chroot () {
 
 arch-chroot ./mount/aurumos
 }
-
 installbase () {
 mkdir -p $(pwd)/var/lib/pacman
 
@@ -126,10 +127,11 @@ cp $rootfs $(pwd)
 
 testroot
 findusbs
-createfiles
 bootfs
 rootfs
-swapfs 
+swapfs
 mountusb
+chroot
 installbase
+createfiles
 umntclnup
