@@ -65,9 +65,16 @@ echo "------------------------------------------------"
 echo "Success! You selected: $DEVICE"
 clear
 }
+
+# cleans up fs
 cleanup () {
+    umount $rootfs
+    umount $bootfs
+    cp $bootfs ..
+    cp $rootfs ..
     rm -rf mount var
 }
+
 
 bootfs () {
 # starts fdisk to partition the device
