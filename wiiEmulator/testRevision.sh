@@ -99,25 +99,25 @@ installbase () {
 mkdir -p $(pwd)/var/lib/pacman
 
 #installs base packages
-pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -Sy
-pacman --root $rootfs --cachedir $rootfs/var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $rootfs/var/lib/pacman -S base base-devel openfwwf plasma-desktop
-sudo cp $(pwd)pacman.conf $rootfs/etc/pacman.conf
+pacman --root $rootfs --cachedir $(rootfs)var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $(rootfs)var/lib/pacman -Sy
+pacman --root $rootfs --cachedir $(rootfs)var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $(rootfs)var/lib/pacman -S base base-devel openfwwf plasma-desktop
+sudo cp $(pwd)/pacman.conf $rootfs/etc/pacman.conf
 }
 
 createfiles () {
     # create fstab
-touch $rootfs/etc/fstab
+touch $(rootfs)etc/fstab
 echo "
 $DEVICE"2"          /            ext2      defaults,noatime            0 1
 $DEVICE"1"          /boot        vfat      defaults,noatime            0 1
 
-tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $rootfs/etc/fstab
+tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $(rootfs)etc/fstab
 
-touch $rootfs/etc/rc.conf
+touch $(rootfs)etc/rc.conf
 echo "HOSTNAME=aurumos" > $rootfs/etc/rc.conf
 
-touch $rootfs/etc/hosts
-echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost    archlinux" > $rootfs/etc/hosts
+touch $(rootfs)etc/hosts
+echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost    archlinux" > $(rootfs)etc/hosts
 }
 
 umntclnup () {
