@@ -65,6 +65,9 @@ echo "------------------------------------------------"
 echo "Success! You selected: $DEVICE"
 clear
 }
+cleanup () {
+    rm -rf mount var
+}
 
 bootfs () {
 # starts fdisk to partition the device
@@ -126,6 +129,7 @@ cp $rootfs $(pwd)
 }
 
 testroot
+cleanup
 findusbs
 prereqs
 bootfs
