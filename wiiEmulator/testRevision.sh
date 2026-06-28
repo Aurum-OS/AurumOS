@@ -9,6 +9,10 @@
 rootfs=$(pwd)/mount/aurumos/
 bootfs=$(pwd)/mount/boot/
 
+prereqs () {
+    sudo pacman -S --no-confirm --needed dosfstools
+}
+
 testroot () {
   if [[ "$EUID" = 0 ]]; then
     continue
@@ -127,6 +131,7 @@ cp $rootfs $(pwd)
 
 testroot
 findusbs
+prereqs
 bootfs
 rootfs
 swapfs
