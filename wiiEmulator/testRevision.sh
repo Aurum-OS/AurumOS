@@ -10,7 +10,7 @@ rootfs=$(pwd)/mount/aurumos/
 bootfs=$(pwd)/mount/boot/
 
 prereqs () {
-    sudo pacman -S --no-confirm --needed dosfstools
+    sudo pacman -S --needed --noconfirm dosfstools arch-install-scripts
 }
 
 testroot () {
@@ -93,8 +93,7 @@ sudo mkdir -p ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
 }
 chroot () {
-
-arch-chroot ./mount/aurumos
+arch-chroot ./mount /bin/bash
 }
 installbase () {
 mkdir -p $(pwd)/var/lib/pacman
