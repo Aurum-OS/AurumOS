@@ -102,6 +102,8 @@ sudo mount $DEVICE"1" ./mount/boot
 sudo mkdir -p ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
 
+swapon $DEVICE"3"
+
 sudo mkdir -p ./mount/proc
 echo MOUNTUSB
 }
