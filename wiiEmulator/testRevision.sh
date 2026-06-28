@@ -91,6 +91,8 @@ sudo mount $DEVICE"1" ./mount/boot
 
 sudo mkdir -p ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
+
+sudo mkdir -p ./mount/proc
 }
 chroot () {
 arch-chroot ./mount /bin/bash
