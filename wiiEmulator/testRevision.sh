@@ -106,17 +106,12 @@ sudo cp $(pwd)/pacman.conf $rootfs/etc/pacman.conf
 
 createfiles () {
     # create fstab
-touch $(rootfs)etc/fstab
 echo "
 $DEVICE"2"          /            ext2      defaults,noatime            0 1
 $DEVICE"1"          /boot        vfat      defaults,noatime            0 1
 
 tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $(rootfs)etc/fstab
-
-touch $(rootfs)etc/rc.conf
 echo "HOSTNAME=aurumos" > $rootfs/etc/rc.conf
-
-touch $(rootfs)etc/hosts
 echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost    archlinux" > $(rootfs)etc/hosts
 }
 
