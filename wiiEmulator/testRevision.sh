@@ -86,10 +86,10 @@ sudo /sbin/mkswap $DEVICE"3"
 
 mountusb () {
 # creates mount points & mounts partitoions
-sudo mkdir ./mount/boot
+sudo mkdir -p  ./mount/boot
 sudo mount $DEVICE"1" ./mount/boot
 
-sudo mkdir ./mount/aurumos
+sudo mkdir -p ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
 }
 chroot () {
