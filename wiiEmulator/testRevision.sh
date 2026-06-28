@@ -103,9 +103,11 @@ sudo mkdir -p ./mount/aurumos
 sudo mount $DEVICE"2" ./mount/aurumos
 
 sudo mkdir -p ./mount/proc
+echo MOUNTUSB
 }
 chroot () {
 arch-chroot ./mount /bin/bash
+echo CHROOT
 }
 installbase () {
 mkdir -p $(pwd)/var/lib/pacman
@@ -114,6 +116,7 @@ mkdir -p $(pwd)/var/lib/pacman
 pacman --root $rootfs --cachedir $(rootfs)var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $(rootfs)var/lib/pacman -Sy
 pacman --root $rootfs --cachedir $(rootfs)var/cache/pacman/pkg --config $(pwd)/pacman.conf -b $(rootfs)var/lib/pacman -S base base-devel openfwwf plasma-desktop
 sudo cp $(pwd)/pacman.conf $rootfs/etc/pacman.conf
+echo INSTALLBASE
 }
 
 createfiles () {
@@ -125,6 +128,7 @@ $DEVICE"1"          /boot        vfat      defaults,noatime            0 1
 tmpfs                   /var/log     tmpfs     size=16m                    0 0" > $(rootfs)etc/fstab
 echo "HOSTNAME=aurumos" > $rootfs/etc/rc.conf
 echo "127.0.0.1      archlinux.domain.org   localhost.localdomain      localhost    archlinux" > $(rootfs)etc/hosts
+echo CREATEFILES WORKS
 }
 
 umntclnup () {
