@@ -70,8 +70,8 @@ clear
 cleanup () {
     umount $rootfs
     umount $bootfs
-    cp $bootfs ..
-    cp $rootfs ..
+    mv $bootfs ..
+    mv $rootfs ..
     rm -rf mount var
 }
 
