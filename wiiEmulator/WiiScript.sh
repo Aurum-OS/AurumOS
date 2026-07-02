@@ -149,9 +149,20 @@ swapfs () {
     
     if [[ "$DEVICE" == /dev/mmcblk* ]]; then
         sudo /sbin/mkswap "${DEVICE}p3"
+        sudo swapoff ${DEVICE}p3
     else
         sudo /sbin/mkswap "${DEVICE}3"
+        sudo swapoff ${DEVICE}3
     fi
+    
+}
+
+ndumpfs () {
+    (echo n; echo p; echo 4; echo ""; echo ""; echo "w") | sudo /sbin/fdisk $DEVICE
+    if [[ "$DEVICE" == /dev/mmcblk ]]; then
+        sudo mkfs.fat -F 32 "${DEVICE}p4"
+    else
+        sudo mkfs.fat -F 32 "${DEVICE}4"    
 }
 
 mountusb () {
@@ -217,6 +228,7 @@ prereqs
 bootfs
 rootfs
 swapfs
+ndumpfs
 mountusb
 chroot
 installbase
