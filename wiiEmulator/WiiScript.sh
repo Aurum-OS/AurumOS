@@ -10,10 +10,6 @@ rootfs=$(pwd)/mount/aurumos/
 bootfs=$(pwd)/mount/boot/
 MIN_REQ_MB=1984
 
-prereqs () {
-    sudo pacman -S --needed --noconfirm dosfstools arch-install-scripts
-}
-
 testroot () {
   if [[ "$EUID" = 0 ]]; then
     continue
@@ -22,6 +18,24 @@ testroot () {
     sleep 2
     exit
   fi
+}
+
+# Display line error
+handlerror () {
+clear
+set -uo pipefail
+trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
+}
+
+# cleans up fs
+cleanup () {
+[[ -d $(bootfs) ]] && umount -f $(bootfs)
+[[ -d $(rootfs) ]] && umount -f $(rootfs)
+if [[ $(swapon --show) != "" ]]; then
+    swapoff $(swapon -a)
+fi
+
+rm -rf mount var
 }
 
 findusbs () {
@@ -96,17 +110,9 @@ echo "- Rootfs (ext2):  $ROOTFS_MB MB"
 echo "------------------------------------------------"
 }
 
-# cleans up fs
-cleanup () {
-[[ -d $(bootfs) ]] && umount -f $(bootfs)
-[[ -d $(rootfs) ]] && umount -f $(rootfs)
-if [[ $(swapon --show) != "" ]]; then
-    swapoff $(swapon -a)
-fi
-
-rm -rf mount var
+prereqs () {
+    sudo pacman -S --needed --noconfirm dosfstools arch-install-scripts
 }
-
 
 bootfs () {
 # starts fdisk to partition the device
@@ -153,13 +159,6 @@ sudo cp $(pwd)/pacman.conf $rootfs/etc/pacman.conf
 echo INSTALLBASE
 }
 
-# Display line error
-handlerror () {
-clear
-set -uo pipefail
-trap 's=$?; echo "$0: Error on line "$LINENO": $BASH_COMMAND"; exit $s' ERR
-}
-
 createfiles () {
     # create fstab
 echo "
@@ -173,11 +172,13 @@ echo CREATEFILES WORKS
 }
 
 umntclnup () {
-exit
-sudo umount -f $bootfs
-sudo umount -f $rootfs
-cp $rootfs $(pwd)
-cp $rootfs $(pwd)
+[[ -d $(bootfs) ]] && umount -f $(bootfs)
+[[ -d $(rootfs) ]] && umount -f $(rootfs)
+if [[ $(swapon --show) != "" ]]; then
+    swapoff $(swapon -a)
+fi
+
+rm -rf mount var
 }
 
 testroot
