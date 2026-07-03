@@ -158,11 +158,12 @@ swapfs () {
 }
 
 ndumpfs () {
-    (echo n; echo p; echo 4; echo ""; echo ""; echo "w") | sudo /sbin/fdisk $DEVICE
+    (echo n; echo p; echo 4; echo ""; echo "+1024M"; echo "w") | sudo /sbin/fdisk $DEVICE
     if [[ "$DEVICE" == /dev/mmcblk ]]; then
         sudo mkfs.fat -F 32 "${DEVICE}p4"
     else
-        sudo mkfs.fat -F 32 "${DEVICE}4"    
+        sudo mkfs.fat -F 32 "${DEVICE}4"
+    fi
 }
 
 mountusb () {
