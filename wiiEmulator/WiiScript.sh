@@ -14,7 +14,7 @@ testroot () {
   if [[ "$EUID" = 0 ]]; then
     continue
   else
-    echo "Please Run As Root"
+    echo "please, and i beg of thee, /nrun as root of the finest tree"
     sleep 2
     exit
   fi
